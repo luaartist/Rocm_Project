@@ -2,6 +2,21 @@
 
 This guide shows how to enable GPU acceleration on Ubuntu systems using ROCm (AMD) or CUDA (NVIDIA).
 
+## Diagnostic Tools
+
+### For Older AMD GPUs (gfx1010 and similar)
+If you're having issues with Conv2d operations or other GPU computations on older AMD GPUs:
+
+```bash
+# Run comprehensive diagnostic
+python3 rocm_diagnostic_gfx1010.py
+
+# If issues found, install ROCm 5.2 for better compatibility
+./install_rocm_5_2_gfx1010.sh
+```
+
+**Supported older GPUs:** gfx1010, older RDNA/RDNA2 architectures with limited ROCm 6.x support.
+
 ## Quick ROCm Installation (Ubuntu)
 
 ```bash
