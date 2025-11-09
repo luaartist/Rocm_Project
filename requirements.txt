@@ -1,0 +1,10 @@
+# GPU Libraries for Python
+torch>=2.0.0
+torchvision
+torchaudio
+cupy-cuda11x
+numba
+numpy
+
+# Optional: For AMD ROCm support
+# torch>=2.0.0 --index-url https://download.pytorch.org/whl/rocm5.6
