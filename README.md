@@ -120,6 +120,32 @@ if torch.cuda.device_count() > 1:
 3. **CUDA version mismatch**: Ensure PyTorch and CUDA versions match
 4. **Memory errors**: Monitor GPU memory with `nvidia-smi` or `rocm-smi`
 
+### Ubuntu LLM Installation Notes
+
+When using LLMs or automated scripts to install GPU drivers on Ubuntu, you may encounter permission issues with `sudo` commands. Ubuntu uses PolicyKit (pkexec) for graphical authentication, which works better in these scenarios:
+
+**Why pkexec instead of sudo:**
+- `sudo` may fail in automated environments or when passwords are required
+- `pkexec` provides a graphical authentication dialog that works with desktop sessions
+- Better integration with Ubuntu's security policies
+
+**Using pkexec for GPU installation:**
+```bash
+# Instead of: sudo apt install nvidia-driver-XXX
+pkexec apt install nvidia-driver-XXX
+
+# For ROCm installation:
+pkexec apt install -y rocminfo rocm-smi rocm-cmake rocm-device-libs
+
+# Add user to groups (may require pkexec):
+pkexec usermod -a -G render,video $USER
+```
+
+**When to use pkexec vs sudo:**
+- Use `pkexec` when running installation commands through LLMs or scripts
+- Use `sudo` for quick commands in terminal or when you can provide password
+- Both work for most administrative tasks, but `pkexec` is more reliable in automated contexts
+
 ### Reset GPU Memory:
 ```python
 import torch
